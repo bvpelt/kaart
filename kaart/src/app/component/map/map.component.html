@@ -1,0 +1,8 @@
+<div #mapElement [class]="($measureActive | async) ? 'crosshair map' : 'map'" id="map">
+    <dso-map-click-overlay></dso-map-click-overlay>
+    <dso-popup></dso-popup>
+    <span class="dso-ol-measure">
+      <dso-measure></dso-measure>
+    </span>
+  </div>
+  

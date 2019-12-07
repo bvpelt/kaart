@@ -1,0 +1,16 @@
+.map {
+    height: 100%;
+    position: relative;
+  }
+  
+  .dso-ol-measure {
+    position: absolute;
+    top: 70px;
+    right: 8px;
+    z-index: 18;
+  }
+  
+  .crosshair {
+    cursor: crosshair;
+  }
+  

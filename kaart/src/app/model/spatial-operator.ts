@@ -1,0 +1,1 @@
+export type SpatialOperator = 'intersects' | 'within' | 'contains';
