@@ -7,8 +7,12 @@ Kaart
 
 At top level
 ```
-npm install npm -2 @angular/cli
-ng new kaart
+$ npm install npm -2 @angular/cli
+$ ng new kaart
+$ cd kaart
+$ npm install ngx-openlayers
+$ ng generate module app-routing --flat --module=app
+$ ng generate component map
 ```
 
 # Referenties
