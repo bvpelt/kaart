@@ -18,4 +18,5 @@ $ ng generate component map
 # Referenties
 - https://angular.io/cli
 - https://angular.io/tutorial
-
+- https://openlayers.org/
+- use EPSG:28892 projection with openlayers https://gis.stackexchange.com/questions/226888/adding-a-projection-in-openlayers
