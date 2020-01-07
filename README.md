@@ -14,6 +14,8 @@ $ npm install ngx-openlayers
 $ ng generate module app-routing --flat --module=app
 $ ng generate component map
 ```
+## WMTS
+http://geodata.nationaalgeoregister.nl/tiles/service/wmts?REQUEST=GetCapabilities
 
 # Referenties
 - https://angular.io/cli
