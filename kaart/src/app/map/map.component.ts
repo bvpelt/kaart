@@ -3,11 +3,11 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-/* import {Projection} from 'ol/proj'; */
-import {get as getProjection} from 'ol/proj';
-import {getTopLeft, getWidth} from 'ol/extent';
+
 import WMTS from 'ol/source/WMTS';
-import WMTSTileGrid from 'ol/tilegrid/WMTS';
+import {BrtLayer} from "./brtlayer";
+import {KadastraleKaartLayer} from "./kadastralekaartlayer";
+import {BgtStandaardLayer} from "./bgtstandaardlayer";
 
 
 @Component({
@@ -20,50 +20,20 @@ export class MapComponent implements AfterViewInit {
   /* WMTS PDOK */
   static map: Map;
 
-  private wmtsSource: WMTS = null;
+  private brtLayer: WMTS = null;
+  private kadastraleKaartLayer: WMTS = null;
+  private bgtStandaaardLayer: WMTS = null;
 
   constructor() {
-    if (this.wmtsSource === null) {
-      this.wmtsSource = MapComponent.createWmts();
+    if (this.brtLayer === null) {
+      this.brtLayer = BrtLayer.createBrtLayer();
     }
-  }
-
-  private static createWmts(): WMTS {
-    const resolutions: Array<number> = new Array(14);
-    const matrixIds: Array<string> = new Array(14);
-    const projectionExtentxx = [-285401.92, 22598.08, 595401.9199999999, 903401.9199999999];
-
-    const projectionExtent = [646.36, 308975.28, 276050.82, 636456.31];
-    const size = getWidth(projectionExtent) / 256;
-    const projection = getProjection('EPSG:28992');
-
-    console.log('projection: ' + projection);
-    console.log('size: ' + size);
-    console.log('projectionExtent: ' + projectionExtent);
-
-    for (let z = 0; z < 14; ++z) {
-      resolutions[z] = size / Math.pow(2, z);
-      matrixIds[z] = 'EPSG:28992:' + z; /* z */
-      console.log('z: ' + z + ' resolution: ' + resolutions[z] + ' matrixIds: ' + matrixIds[z]);
+    if (this.kadastraleKaartLayer === null) {
+      this.kadastraleKaartLayer = KadastraleKaartLayer.createKadastraleKaartLayer();
     }
-
-    const wmtsSource: WMTS = new WMTS({
-      url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts?',
-      layer: 'brtachtergrondkaart',
-      matrixSet: 'EPSG:28992', /* this.projection, */
-      format: 'image/png',
-      projection: 'EPSG:28992',
-      tileGrid: new WMTSTileGrid({
-        origin: getTopLeft(projectionExtent),
-        resolutions,
-        matrixIds,
-      }),
-      style: 'default',
-      wrapX: true,
-      crossOrigin: 'anonymous'
-    });
-
-    return wmtsSource;
+    if (this.bgtStandaaardLayer === null) {
+      this.bgtStandaaardLayer = BgtStandaardLayer.createBgtStandaardLayer();
+    }
   }
 
   ngAfterViewInit() {
@@ -72,7 +42,16 @@ export class MapComponent implements AfterViewInit {
       layers: [
         new TileLayer({
           opacity: 1.0,
-          source: this.wmtsSource
+          source: this.brtLayer
+        }),
+        new TileLayer({
+          opacity: 1.0,
+          source: this.kadastraleKaartLayer
+        }),
+        new TileLayer({
+          opacity: 1.0,
+          source: this.bgtStandaaardLayer,
+          visual: false
         })
       ],
       view: new View({
