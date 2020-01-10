@@ -14,4 +14,4 @@ ng new kaart
 # Referenties
 - https://angular.io/cli
 - https://angular.io/tutorial
-
+- typescript compiler optiona https://www.typescriptlang.org/docs/handbook/compiler-options.html
