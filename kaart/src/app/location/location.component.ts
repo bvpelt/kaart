@@ -7,8 +7,7 @@ import {LookupWeg} from "../services/lookupweg";
 import {LookupPostCode} from "../services/lookuppostcode";
 import {LookupAdres} from "../services/lookupadres";
 import {Suggest} from "../services/suggest";
-import {HighlightSuggest} from "../services/highlightsuggest";
-
+import {SuggestResponse} from "../services/suggestresponse";
 
 @Component({
   selector: 'app-location',
@@ -23,6 +22,10 @@ export class LocationComponent implements OnInit {
   private static l_index: number = 0;
   private adresses: string[];
   private adresses_ids: string[];
+  private selected_adres: string;
+  private selected_id: string;
+  private rd_x:number;
+  private rd_y: number;
 
   constructor(pdokLocService: PdoklocService) {
     this.pdokLocService = pdokLocService;
@@ -50,13 +53,42 @@ export class LocationComponent implements OnInit {
         var sug: string[] = Array(LocationComponent.maxRows);
         var ids: string[] = Array(LocationComponent.maxRows);
         var len = data.length;
-        for (var i = 0; i< len; i++) {
+        for (var i = 0; i < len; i++) {
           sug[i] = suggest.highlighting[data[i]].suggest;
           ids[i] = data[i];
         }
         console.log("suggestions: " + sug);
         this.adresses = sug;
         this.adresses_ids = ids;
+      });
+  }
+
+  /*
+  When adres is selected,
+  find information on selected adres
+   */
+  onSelect(adres: string, index: number): void {
+    console.log("selected element i: " + index + ' adres: ' + adres + " id: " + this.adresses_ids[index]);
+    this.selected_adres = adres;
+    this.selected_id = this.adresses_ids[index];
+    this.pdokLocService.getLookup(this.selected_id)
+      .subscribe(lookup => {
+        console.log("Received: " + lookup);
+        var result: SuggestResponse = <SuggestResponse> lookup.response;
+        if (result.numFound == 1) { // resultaat gevonden
+          console.log("Type of result 00: " + typeof(result.docs[0]));
+          var doc: (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres) = <(LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres)>result.docs[0];
+          console.log("Type of result 01: " + doc.type);
+          var rdstring = doc.centroide_rd;
+          console.log("Center coord: " + rdstring);
+
+          var NUMERIC_REGEXP = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
+          var coords: string[] = rdstring.match(NUMERIC_REGEXP);
+          console.log("coords: " + coords);
+          this.rd_x = parseFloat(coords[0]);
+          this.rd_y = parseFloat(coords[1]);
+          console.log("x: " + this.rd_x + " y: " + this.rd_y);
+        }
       });
   }
 

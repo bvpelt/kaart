@@ -5,6 +5,6 @@
   </label>
   <p>adres</p>
   <ul>
-    <li *ngFor="let adres of adresses" ><div [innerHTML]="adres"></div></li>
+    <li *ngFor="let adres of adresses; index as i" (click)="onSelect(adres,i)"><div [innerHTML]="adres"></div></li>
   </ul>
 </div>

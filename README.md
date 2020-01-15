@@ -37,3 +37,4 @@ Default query
 - https://openlayers.org/
 - use EPSG:28892 projection with openlayers https://gis.stackexchange.com/questions/226888/adding-a-projection-in-openlayers
 - https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724?gi=5a3539cceb9a
+- position https://openlayers.org/en/latest/apidoc/module-ol_View-View.html#adjustZoom

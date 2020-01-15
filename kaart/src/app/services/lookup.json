@@ -1,0 +1,26 @@
+{
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "maxScore": 15.731458,
+    "docs": [
+      {
+        "bron": "BAG",
+        "identificatie": "2308",
+        "provinciecode": "PV21",
+        "woonplaatscode": "2308",
+        "type": "woonplaats",
+        "woonplaatsnaam": "Ferwoude",
+        "provincienaam": "Friesland",
+        "centroide_ll": "POINT(5.43847529 53.00541064)",
+        "gemeentecode": "1900",
+        "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/woonplaats/2308",
+        "weergavenaam": "Ferwoude, Súdwest-Fryslân, Friesland",
+        "provincieafkorting": "FR",
+        "centroide_rd": "POINT(158441.48 557607.612)",
+        "id": "wpl-6942d1239f408866e309fc49063b97d1",
+        "gemeentenaam": "Súdwest-Fryslân"
+      }
+    ]
+  }
+}
