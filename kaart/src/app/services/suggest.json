@@ -1,0 +1,125 @@
+{
+  "response": {
+    "numFound": 36544,
+    "start": 0,
+    "maxScore": 24.075737,
+    "docs": [
+      {
+        "type": "gemeente",
+        "weergavenaam": "Gemeente Veenendaal",
+        "id": "gem-d0ccd69056678531945827988e55cbcf",
+        "score": 24.075737
+      },
+      {
+        "type": "woonplaats",
+        "weergavenaam": "Veenendaal, Veenendaal, Utrecht",
+        "id": "wpl-85876574a2fea3d7347b7e7c1b6c98e6",
+        "score": 21.149656
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Aalbes, Veenendaal",
+        "id": "weg-b024b25ecaa072c0f94a0b088bb3ffd0",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Aalscholver, Veenendaal",
+        "id": "weg-a95b455225f8160acf89f2afe51931cd",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Aardbeivlinderstraat, Veenendaal",
+        "id": "weg-807646073571b0aa3151d51ebea33ca5",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Aardzwaluw, Veenendaal",
+        "id": "weg-57afbab2f02860417dd5172eed13ebd1",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Acacialaan, Veenendaal",
+        "id": "weg-223257a5cda6df61e1462b80634542a5",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Accustraat, Veenendaal",
+        "id": "weg-5cd1465d60b89fae05a940b03862375c",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Achterberglaan, Veenendaal",
+        "id": "weg-913b32e8446831bedc975d4686b72966",
+        "score": 13.37994
+      },
+      {
+        "type": "weg",
+        "weergavenaam": "Achterkerkstraat, Veenendaal",
+        "id": "weg-28eafd83f8aea1f47dbd430ff0a6918f",
+        "score": 13.37994
+      }
+    ]
+  },
+  "highlighting": {
+    "gem-d0ccd69056678531945827988e55cbcf": {
+      "suggest": [
+        "Gemeente <b>Veenendaal</b>"
+      ]
+    },
+    "wpl-85876574a2fea3d7347b7e7c1b6c98e6": {
+      "suggest": [
+        "<b>Veenendaal</b>, <b>Veenendaal</b>, Utrecht"
+      ]
+    },
+    "weg-b024b25ecaa072c0f94a0b088bb3ffd0": {
+      "suggest": [
+        "Aalbes, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-a95b455225f8160acf89f2afe51931cd": {
+      "suggest": [
+        "Aalscholver, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-807646073571b0aa3151d51ebea33ca5": {
+      "suggest": [
+        "Aardbeivlinderstraat, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-57afbab2f02860417dd5172eed13ebd1": {
+      "suggest": [
+        "Aardzwaluw, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-223257a5cda6df61e1462b80634542a5": {
+      "suggest": [
+        "Acacialaan, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-5cd1465d60b89fae05a940b03862375c": {
+      "suggest": [
+        "Accustraat, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-913b32e8446831bedc975d4686b72966": {
+      "suggest": [
+        "Achterberglaan, <b>Veenendaal</b>"
+      ]
+    },
+    "weg-28eafd83f8aea1f47dbd430ff0a6918f": {
+      "suggest": [
+        "Achterkerkstraat, <b>Veenendaal</b>"
+      ]
+    }
+  },
+  "spellcheck": {
+    "suggestions": [],
+    "collations": []
+  }
+}

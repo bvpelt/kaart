@@ -5,9 +5,9 @@ import {defaults as defaultControls} from 'ol/control';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
 
 import WMTS from 'ol/source/WMTS';
-import {BrtLayer} from "./brtlayer";
-import {KadastraleKaartLayer} from "./kadastralekaartlayer";
-import {BgtStandaardLayer} from "./bgtstandaardlayer";
+import {BrtLayer} from "./layers/brtlayer";
+import {KadastraleKaartLayer} from "./layers/kadastralekaartlayer";
+import {BgtStandaardLayer} from "./layers/bgtstandaardlayer";
 
 
 @Component({
@@ -42,16 +42,20 @@ export class MapComponent implements AfterViewInit {
       layers: [
         new TileLayer({
           opacity: 1.0,
-          source: this.brtLayer
+          source: this.brtLayer,
+          zIndex: 0
         }),
         new TileLayer({
           opacity: 1.0,
-          source: this.kadastraleKaartLayer
+          source: this.kadastraleKaartLayer,
+          zIndex: 1,
+          visible: true
         }),
         new TileLayer({
           opacity: 1.0,
           source: this.bgtStandaaardLayer,
-          visual: false
+          zIndex: 2,
+          visible: false
         })
       ],
       view: new View({

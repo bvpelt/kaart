@@ -1,0 +1,10 @@
+<div>
+  <p>new: {{l_new}}</p>
+  <label>Locatie
+    <input [(ngModel)]="location" placeholder="locatie" (keyup)="onKeydown($event.target.value);" />
+  </label>
+  <p>adres</p>
+  <ul>
+    <li *ngFor="let adres of adresses" ><div [innerHTML]="adres"></div></li>
+  </ul>
+</div>
