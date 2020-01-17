@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
 
 import {LocationComponent} from './location/location.component';
+import {LocationExchance} from "./services/locationExchance";
 /* import {PDOKLocatieModule, PDOKLocatieService} from "./services/pdoklocatie"; */
 
 
@@ -21,7 +22,7 @@ import {LocationComponent} from './location/location.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LocationExchance],
   bootstrap: [AppComponent]
 })
 export class AppModule {

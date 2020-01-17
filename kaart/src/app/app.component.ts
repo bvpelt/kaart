@@ -1,5 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Point from 'ol/geom/Point';
+import {toStringXY} from 'ol/coordinate';
+import {LocationExchance} from "./services/locationExchance";
+import * as olCoordinate from 'ol/coordinate';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +12,11 @@ import Point from 'ol/geom/Point';
 export class AppComponent {
   title = 'kaart';
 
-  initialLocation: Point;
+  private currentLocation: Point;
 
+  constructor(private location: LocationExchance) {}
+
+  ngOnInit() {
+    this.location.currentLocation.subscribe(point => this.currentLocation = point);
+  }
 }

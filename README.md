@@ -38,4 +38,8 @@ Default query
 - use EPSG:28892 projection with openlayers https://gis.stackexchange.com/questions/226888/adding-a-projection-in-openlayers
 - https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724?gi=5a3539cceb9a
 - position https://openlayers.org/en/latest/apidoc/module-ol_View-View.html#adjustZoom
-- events https://ultimatecourses.com/blog/component-events-event-emitter-output-angular-2
+- events 
+    - https://ultimatecourses.com/blog/component-events-event-emitter-output-angular-2
+    - https://medium.com/@pandukamuditha/angular-5-share-data-between-sibling-components-using-eventemitter-8ebb49b64a0a
+    - https://angularfirebase.com/lessons/sharing-data-between-angular-components-four-methods/
+

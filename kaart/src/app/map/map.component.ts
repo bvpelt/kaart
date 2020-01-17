@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control';
@@ -9,6 +9,10 @@ import {BrtLayer} from "./layers/brtlayer";
 import {KadastraleKaartLayer} from "./layers/kadastralekaartlayer";
 import {BgtStandaardLayer} from "./layers/bgtstandaardlayer";
 import Point from 'ol/geom/Point';
+import {LocationExchance} from "../services/locationExchance";
+import {toStringXY} from 'ol/coordinate';
+import MousePosition from 'ol/control/MousePosition';
+import {createStringXY} from 'ol/coordinate';
 
 @Component({
   selector: 'app-map',
@@ -18,16 +22,16 @@ import Point from 'ol/geom/Point';
 export class MapComponent implements AfterViewInit {
 
   /* WMTS PDOK */
-  static map: Map;
+  public map: Map;
 
-  @Input('currentLocation')
-  currentLocation: Point;
+  private coordinate = [12744, 44317];
+  private location: Point = new Point(this.coordinate);
 
-  private brtLayer: WMTS = null;
-  private kadastraleKaartLayer: WMTS = null;
-  private bgtStandaaardLayer: WMTS = null;
+  private readonly brtLayer: WMTS = null;
+  private readonly kadastraleKaartLayer: WMTS = null;
+  private readonly bgtStandaaardLayer: WMTS = null;
 
-  constructor() {
+  constructor(private locationExchange: LocationExchance) {
     if (this.brtLayer === null) {
       this.brtLayer = BrtLayer.createBrtLayer();
     }
@@ -40,7 +44,9 @@ export class MapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    MapComponent.map = new Map({
+    var mousePositionControl = this.createMouseTracker();
+
+    this.map = new Map({
       target: 'map',
       layers: [
         new TileLayer({
@@ -68,20 +74,32 @@ export class MapComponent implements AfterViewInit {
       controls: defaultControls().extend([
         new ZoomToExtent({
           extent: [646.36, 308975.28, 276050.82, 636456.31]
-        })
+        }),
+        mousePositionControl
       ])
+    });
+
+
+    this.locationExchange.currentLocation.subscribe(point => {
+      this.location = point;
+      console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates()));
+      const view: View = this.map.getView();
+      var options = [{"maxZoom": 8, "minZoom": 10, "minResolution": 40}];
+      view.fit(this.location, options);
     });
   }
 
-  locationChanged(event: EventEmitter<Point>) {
-    // this.changedLocation = event;
-    console.log('Received event: ' + event);
-//    console.log('Received new location: ' + this.changedLocation);
-    // const geom: Geometry = this.changedLocation;
-  }
 
-  onLocationChanged(point: Point) {
-    console.log('Recevied point: ' + point);
-    MapComponent.map.view.fit(point);
-  }
+  createMouseTracker(): MousePosition {
+    var mousePosition: MousePosition = new MousePosition({
+      coordinateFormat: createStringXY(4),
+      projection: 'EPSG:4326',
+      // comment the following two lines to have the mouse position
+      // be placed within the map.
+      // className: 'custom-mouse-position',
+      // target: document.getElementById('mouse-position'),
+      undefinedHTML: '&nbsp;'});
+    return mousePosition;
+  };
+
 }

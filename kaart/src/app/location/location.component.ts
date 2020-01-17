@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PdoklocService} from '../services/pdokloc.service';
 import {SuggestDoc} from '../services/suggestdoc';
 import {LookupGemeente} from '../services/lookupgemeente';
@@ -8,9 +8,10 @@ import {LookupPostCode} from '../services/lookuppostcode';
 import {LookupAdres} from '../services/lookupadres';
 import {Suggest} from '../services/suggest';
 import {SuggestResponse} from '../services/suggestresponse';
-import {MapComponent} from '../map/map.component';
 import Point from 'ol/geom/Point';
 import * as olCoordinate from 'ol/coordinate';
+import {toStringXY} from 'ol/coordinate';
+import {LocationExchance} from "../services/locationExchance";
 
 @Component({
   selector: 'app-location',
@@ -19,25 +20,13 @@ import * as olCoordinate from 'ol/coordinate';
 })
 export class LocationComponent implements OnInit {
 
-  initialLocation: Point;
-
-  @Output('changedLocationEvent')
-  location: EventEmitter<Point> = new EventEmitter<Point>();
-
-  constructor(pdokLocService: PdoklocService) {
-    this.pdokLocService = pdokLocService;
-    this.pdokLocService.setMaxRows(LocationComponent.maxRows);
-
-    for (let i = 1; i <= LocationComponent.maxRows; i++) {
-      LocationComponent.l_adreses[i] = '';
-    }
-  }
+  public location: string;
+  private currentLocation: Point;
 
   private static maxRows = 15;
   private static l_adreses: string[] = new Array(LocationComponent.maxRows);
   private static l_index = 0;
   private l_new = '';
-  private pdokLocService: PdoklocService;
   private adresses: string[];
   private adresses_ids: string[];
   private selected_adres: string;
@@ -45,7 +34,17 @@ export class LocationComponent implements OnInit {
   private rd_x: number;
   private rd_y: number;
 
+  constructor(private pdokLocService: PdoklocService,
+              private locationExchange: LocationExchance) {
+    this.pdokLocService.setMaxRows(LocationComponent.maxRows);
+
+    for (let i = 1; i <= LocationComponent.maxRows; i++) {
+      LocationComponent.l_adreses[i] = '';
+    }
+  }
+
   ngOnInit() {
+    this.locationExchange.currentLocation.subscribe(point => this.currentLocation = point);
   }
 
   public onKeydown(value: string) {
@@ -72,6 +71,10 @@ export class LocationComponent implements OnInit {
       });
   }
 
+  newPoint(point: Point) {
+    this.locationExchange.changeLocation(point);
+  }
+
   /*
   When adres is selected,
   find information on selected adres
@@ -92,16 +95,21 @@ export class LocationComponent implements OnInit {
           const rdstring = doc.centroide_rd;
           console.log('Center coord: ' + rdstring);
 
-          const NUMERIC_REGEXP = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
-          const coords: string[] = rdstring.match(NUMERIC_REGEXP);
-          console.log('coords: ' + coords);
-          this.rd_x = parseFloat(coords[0]);
-          this.rd_y = parseFloat(coords[1]);
-          console.log('x: ' + this.rd_x + ' y: ' + this.rd_y);
-          const coord: olCoordinate = [this.rd_x, this.rd_y];
-          const point: Point = new Point(coord, 'XY');
-          this.location.emit(point);
-          console.log('send point: ' + point);
+          if (rdstring != null) {
+            const NUMERIC_REGEXP = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
+            const coords: string[] = rdstring.match(NUMERIC_REGEXP);
+            if (coords != null) {
+              console.log('coords: ' + coords);
+              this.rd_x = parseFloat(coords[0]);
+              this.rd_y = parseFloat(coords[1]);
+              console.log('x: ' + this.rd_x + ' y: ' + this.rd_y);
+              const coord: olCoordinate = [this.rd_x, this.rd_y];
+              const point: Point = new Point(coord, 'XY');
+
+              this.newPoint(point);
+              console.log('Location - send point: ' + toStringXY(point.getCoordinates()));
+            }
+          }
         }
       });
   }
