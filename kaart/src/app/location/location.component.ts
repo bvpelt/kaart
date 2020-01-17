@@ -19,8 +19,10 @@ import * as olCoordinate from 'ol/coordinate';
 })
 export class LocationComponent implements OnInit {
 
-  @Output('update')
-  changeLocation: EventEmitter<Point> = new EventEmitter<Point>();
+  initialLocation: Point;
+
+  @Output('changedLocationEvent')
+  location: EventEmitter<Point> = new EventEmitter<Point>();
 
   constructor(pdokLocService: PdoklocService) {
     this.pdokLocService = pdokLocService;
@@ -30,6 +32,7 @@ export class LocationComponent implements OnInit {
       LocationComponent.l_adreses[i] = '';
     }
   }
+
   private static maxRows = 15;
   private static l_adreses: string[] = new Array(LocationComponent.maxRows);
   private static l_index = 0;
@@ -82,8 +85,9 @@ export class LocationComponent implements OnInit {
         console.log('Received: ' + lookup);
         const result: SuggestResponse = lookup.response as SuggestResponse;
         if (result.numFound == 1) { // resultaat gevonden
-          console.log('Type of result 00: ' + typeof(result.docs[0]));
-          const doc: (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres) = result.docs[0] as (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres);
+          console.log('Type of result 00: ' + typeof (result.docs[0]));
+          const doc: (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres) =
+            result.docs[0] as (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres);
           console.log('Type of result 01: ' + doc.type);
           const rdstring = doc.centroide_rd;
           console.log('Center coord: ' + rdstring);
@@ -96,7 +100,7 @@ export class LocationComponent implements OnInit {
           console.log('x: ' + this.rd_x + ' y: ' + this.rd_y);
           const coord: olCoordinate = [this.rd_x, this.rd_y];
           const point: Point = new Point(coord, 'XY');
-          this.changeLocation.emit(point);
+          this.location.emit(point);
           console.log('send point: ' + point);
         }
       });

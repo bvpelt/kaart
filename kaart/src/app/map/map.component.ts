@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input} from '@angular/core';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control';
@@ -8,7 +8,7 @@ import WMTS from 'ol/source/WMTS';
 import {BrtLayer} from "./layers/brtlayer";
 import {KadastraleKaartLayer} from "./layers/kadastralekaartlayer";
 import {BgtStandaardLayer} from "./layers/bgtstandaardlayer";
-
+import Point from 'ol/geom/Point';
 
 @Component({
   selector: 'app-map',
@@ -19,6 +19,9 @@ export class MapComponent implements AfterViewInit {
 
   /* WMTS PDOK */
   static map: Map;
+
+  @Input('currentLocation')
+  currentLocation: Point;
 
   private brtLayer: WMTS = null;
   private kadastraleKaartLayer: WMTS = null;
@@ -70,4 +73,15 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+  locationChanged(event: EventEmitter<Point>) {
+    // this.changedLocation = event;
+    console.log('Received event: ' + event);
+//    console.log('Received new location: ' + this.changedLocation);
+    // const geom: Geometry = this.changedLocation;
+  }
+
+  onLocationChanged(point: Point) {
+    console.log('Recevied point: ' + point);
+    MapComponent.map.view.fit(point);
+  }
 }
