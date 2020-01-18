@@ -21,6 +21,14 @@ $ ng generate service services/pdoklocatie
 ## WMTS
 http://geodata.nationaalgeoregister.nl/tiles/service/wmts?REQUEST=GetCapabilities
 
+### Referenties
+vanuit dso franjezwam 1
+
+https://geodata.nationaalgeoregister.nl/tiles/service/wmts?layer=bgtachtergrond&style=default&tilematrixset=EPSG%3A28992&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A28992%3A14&TileCol=8405&TileRow=8494
+
+vanuit kaart franjezwam 1
+https://geodata.nationaalgeoregister.nl/tiles/service/wmts?layer=%5Bobject%20Object%5D&style=default&tilematrixset=EPSG%3A28992&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A28992%3A13&TileCol=2654&TileRow=8401
+
 ## CSS
 ### Split screen
 - https://www.w3schools.com/howto/howto_css_split_screen.asp

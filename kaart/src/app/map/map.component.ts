@@ -3,16 +3,15 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-
-import WMTS from 'ol/source/WMTS';
 import {BrtLayer} from "./layers/brtlayer";
 import {KadastraleKaartLayer} from "./layers/kadastralekaartlayer";
 import {BgtStandaardLayer} from "./layers/bgtstandaardlayer";
 import Point from 'ol/geom/Point';
 import {LocationExchance} from "../services/locationExchance";
-import {toStringXY} from 'ol/coordinate';
+import {createStringXY, toStringXY} from 'ol/coordinate';
 import MousePosition from 'ol/control/MousePosition';
-import {createStringXY} from 'ol/coordinate';
+import Projection from 'ol/proj/Projection';
+import {LayerUtils} from "./layers/layerutils";
 
 @Component({
   selector: 'app-map',
@@ -23,82 +22,94 @@ export class MapComponent implements AfterViewInit {
 
   /* WMTS PDOK */
   public map: Map;
+  private layerUtils: LayerUtils = new LayerUtils();
 
-  private coordinate = [12744, 44317];
+  private coordinate = [166546.5, 446639.31]; //[5.55537293, 52.00800145];
   private location: Point = new Point(this.coordinate);
 
-  private readonly brtLayer: WMTS = null;
-  private readonly kadastraleKaartLayer: WMTS = null;
-  private readonly bgtStandaaardLayer: WMTS = null;
-
   constructor(private locationExchange: LocationExchance) {
-    if (this.brtLayer === null) {
-      this.brtLayer = BrtLayer.createBrtLayer();
-    }
-    if (this.kadastraleKaartLayer === null) {
-      this.kadastraleKaartLayer = KadastraleKaartLayer.createKadastraleKaartLayer();
-    }
-    if (this.bgtStandaaardLayer === null) {
-      this.bgtStandaaardLayer = BgtStandaardLayer.createBgtStandaardLayer();
-    }
   }
 
   ngAfterViewInit() {
-    var mousePositionControl = this.createMouseTracker();
+    const mousePositionControl = this.createMouseTracker();
+    const projection: Projection = new Projection({
+      code: this.layerUtils.getProjection(),
+      units: this.layerUtils.getUnits(),
+      extent: this.layerUtils.getProjectionExtent(),
+      getPointResolution: function (resolution) {
+        return resolution;
+      },
+    });
+
+    const brtLayer: BrtLayer = BrtLayer.createBrtLayer();
+    const kadastraleKaartLayer: KadastraleKaartLayer = KadastraleKaartLayer.createKadastraleKaartLayer();
+    const bgtStandaaardLayer: BgtStandaardLayer = BgtStandaardLayer.createBgtStandaardLayer();
 
     this.map = new Map({
       target: 'map',
       layers: [
         new TileLayer({
           opacity: 1.0,
-          source: this.brtLayer,
+          source: brtLayer,
           zIndex: 0
         }),
         new TileLayer({
           opacity: 1.0,
-          source: this.kadastraleKaartLayer,
+          source: kadastraleKaartLayer,
           zIndex: 1,
-          visible: true
+          visible: false
         }),
         new TileLayer({
           opacity: 1.0,
-          source: this.bgtStandaaardLayer,
+          source: bgtStandaaardLayer,
           zIndex: 2,
           visible: false
         })
       ],
       view: new View({
-        center: [135000, 500000],
-        zoom: 12
+        projection: projection,
+        minResolution: 0.05,
+        maxResolution: 1000
       }),
       controls: defaultControls().extend([
         new ZoomToExtent({
-          extent: [646.36, 308975.28, 276050.82, 636456.31]
+          extent: this.layerUtils.getProjectionExtent()
         }),
         mousePositionControl
       ])
     });
 
+    this.map.getView().setMaxZoom(14);
+    this.map.getView().setMinZoom(2);
+    this.map.getView().fit(this.layerUtils.getNlExtend(), {constrainResolution: false});
 
     this.locationExchange.currentLocation.subscribe(point => {
       this.location = point;
-      console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates()));
+      console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates(),6), 4);
       const view: View = this.map.getView();
-      var options = [{"maxZoom": 8, "minZoom": 10, "minResolution": 40}];
+      const options = [{padding: [170, 50, 30, 150], duration: 2000, maxZoom: 5 /* minResolution: 20 */}];
       view.fit(this.location, options);
     });
   }
 
+  setExtentToNL(map: Map) {
+    // timeout toegevoegd om probleem in het portaal te voorkomen waardoor de kaart soms niet getoond werd.
+
+    //setTimeout(() => {
+    map.getView().fit(this.layerUtils.getNlExtend(), {constrainResolution: false});
+    //}, 100);
+  }
 
   createMouseTracker(): MousePosition {
     var mousePosition: MousePosition = new MousePosition({
-      coordinateFormat: createStringXY(4),
-      projection: 'EPSG:4326',
+      coordinateFormat: createStringXY(4), // 4 digits
+      projection: this.layerUtils.getProjection(), // 'EPSG:28992',
       // comment the following two lines to have the mouse position
       // be placed within the map.
       // className: 'custom-mouse-position',
       // target: document.getElementById('mouse-position'),
-      undefinedHTML: '&nbsp;'});
+      undefinedHTML: '&nbsp;'
+    });
     return mousePosition;
   };
 

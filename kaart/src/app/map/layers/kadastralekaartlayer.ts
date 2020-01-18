@@ -1,35 +1,29 @@
 import WMTS from 'ol/source/WMTS';
-import {getTopLeft, getWidth} from 'ol/extent';
+import {getTopLeft} from 'ol/extent';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
+import {LayerUtils} from "./layerutils";
 
 export class KadastraleKaartLayer {
 
   public static createKadastraleKaartLayer(): WMTS {
-    const resolutions: Array<number> = new Array(14);
-    const matrixIds: Array<string> = new Array(14);
-
-    const projectionExtent = [646.36, 308975.28, 276050.82, 636456.31];
-    const size = getWidth(projectionExtent) / 256;
-
-    for (let z = 0; z < 14; ++z) {
-      resolutions[z] = size / Math.pow(2, z);
-      matrixIds[z] = 'EPSG:28992:' + z;
-    }
+    const layerUtils: LayerUtils = new LayerUtils();
+    const layerName: string = 'kadastralekaartv3';
 
     const kadastraleKaartLayer: WMTS = new WMTS({
       url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts?',
-      layer: 'kadastralekaartv3',
-      matrixSet: 'EPSG:28992',
+      layer: layerName,
+      active: false,
+      crossOrigin: 'anonymous',
+      matrixSet: layerUtils.getProjection(),
       format: 'image/png',
-      projection: 'EPSG:28992',
+      projection: layerUtils.getProjection(),
       tileGrid: new WMTSTileGrid({
-        origin: getTopLeft(projectionExtent),
-        resolutions,
-        matrixIds,
+        origin: getTopLeft(layerUtils.getProjectionExtent()),
+        resolutions: layerUtils.getResultions(),
+        matrixIds: layerUtils.getMatrixIds(),
       }),
       style: 'default',
-      wrapX: true,
-      crossOrigin: 'anonymous'
+      wrapX: true
     });
 
     return kadastraleKaartLayer;

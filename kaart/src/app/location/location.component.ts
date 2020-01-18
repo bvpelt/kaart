@@ -51,13 +51,7 @@ export class LocationComponent implements OnInit {
     this.l_new = value;
     this.pdokLocService.getSuggest(value)
       .subscribe(suggest => {
-//        console.log('numFound: ' + suggest.response.numFound);
-//        this.procesResponse(suggest);
-//        this.adresses = LocationComponent.l_adreses;
         let data: string[] = Object.keys(suggest.highlighting);
-//        console.log("data type: " + typeof(data) + " : " + data);
-//        var data0: HighlightSuggest = <HighlightSuggest> data[0];
-//        console.log("data[0]: " + data0.suggest);
         let sug: string[] = Array(LocationComponent.maxRows);
         let ids: string[] = Array(LocationComponent.maxRows);
         let len = data.length;
@@ -92,7 +86,7 @@ export class LocationComponent implements OnInit {
           const doc: (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres) =
             result.docs[0] as (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres);
           console.log('Type of result 01: ' + doc.type);
-          const rdstring = doc.centroide_rd;
+          const rdstring = doc.centroide_rd; // doc.centroide_rd;
           console.log('Center coord: ' + rdstring);
 
           if (rdstring != null) {
@@ -107,11 +101,25 @@ export class LocationComponent implements OnInit {
               const point: Point = new Point(coord, 'XY');
 
               this.newPoint(point);
-              console.log('Location - send point: ' + toStringXY(point.getCoordinates()));
+              console.log('Location - send point: ' + toStringXY(point.getCoordinates(), 6));
+              this.adresses = [];
+              this.adresses_ids = [];
+              /*
+              const regex = /<\/{0,1}b>/gi;
+              const seladr = this.selected_adres;
+              console.log("Location selected adres: ", this.stripString(this.selected_adres, regex));
+               */
+              this.location = this.selected_adres;
             }
           }
         }
       });
+  }
+
+  private stripString(input: string, regex: any): string {
+    console.log("input: " + input + " regex: " + regex);
+    input.replace(regex, "");
+    return input;
   }
 
   private procesResponse(suggest: Suggest): void {
