@@ -28,6 +28,7 @@ export class MapComponent implements AfterViewInit {
   private location: Point = new Point(this.coordinate);
 
   constructor(private locationExchange: LocationExchance) {
+
   }
 
   ngAfterViewInit() {
@@ -85,11 +86,18 @@ export class MapComponent implements AfterViewInit {
 
     this.locationExchange.currentLocation.subscribe(point => {
       this.location = point;
-      console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates(),6), 4);
       const view: View = this.map.getView();
-      const options = [{padding: [170, 50, 30, 150], duration: 2000, maxZoom: 5 /* minResolution: 20 */}];
-      view.fit(this.location, options);
+      const options = [{padding: [50, 50, 50, 50]}];
+
+      console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates(), 6), 4);
+      console.log("Current zoom: " + view.getZoom());
+
+      view.fit(point, options);
+      view.setZoom(11);
+
+      console.log("Next zoom: " + view.getZoom());
     });
+
   }
 
   setExtentToNL(map: Map) {

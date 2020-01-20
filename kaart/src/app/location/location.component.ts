@@ -29,6 +29,7 @@ export class LocationComponent implements OnInit {
   private l_new = '';
   private adresses: string[];
   private adresses_ids: string[];
+  private names: string[];
   private selected_adres: string;
   private selected_id: string;
   private rd_x: number;
@@ -54,14 +55,17 @@ export class LocationComponent implements OnInit {
         let data: string[] = Object.keys(suggest.highlighting);
         let sug: string[] = Array(LocationComponent.maxRows);
         let ids: string[] = Array(LocationComponent.maxRows);
+        let names: string[] = Array(LocationComponent.maxRows);
         let len = data.length;
         for (let i = 0; i < len; i++) {
           sug[i] = suggest.highlighting[data[i]].suggest;
           ids[i] = data[i];
+          names[i] = suggest.response.docs[i].weergavenaam;
         }
         console.log('suggestions: ' + sug);
         this.adresses = sug;
         this.adresses_ids = ids;
+        this.names = names;
       });
   }
 
@@ -104,12 +108,7 @@ export class LocationComponent implements OnInit {
               console.log('Location - send point: ' + toStringXY(point.getCoordinates(), 6));
               this.adresses = [];
               this.adresses_ids = [];
-              /*
-              const regex = /<\/{0,1}b>/gi;
-              const seladr = this.selected_adres;
-              console.log("Location selected adres: ", this.stripString(this.selected_adres, regex));
-               */
-              this.location = this.selected_adres;
+              this.location = this.names[index];
             }
           }
         }

@@ -1,125 +1,125 @@
 {
-  "response": {
-    "numFound": 36544,
-    "start": 0,
-    "maxScore": 24.075737,
-    "docs": [
+  response: {
+    numFound: 27,
+    start: 0,
+    maxScore: 23.215927,
+    docs: [
       {
-        "type": "gemeente",
-        "weergavenaam": "Gemeente Veenendaal",
-        "id": "gem-d0ccd69056678531945827988e55cbcf",
-        "score": 24.075737
+        type: "weg",
+        weergavenaam: "Franjezwam, Veenendaal",
+        id: "weg-94958a50d7ff8dd9e785de5c14a787d3",
+        score: 23.215927
       },
       {
-        "type": "woonplaats",
-        "weergavenaam": "Veenendaal, Veenendaal, Utrecht",
-        "id": "wpl-85876574a2fea3d7347b7e7c1b6c98e6",
-        "score": 21.149656
+        type: "postcode",
+        weergavenaam: "Franjezwam, 3903GA Veenendaal",
+        id: "pcd-c90848918450209f6ddc6a6398a0ad3b",
+        score: 13.337697
       },
       {
-        "type": "weg",
-        "weergavenaam": "Aalbes, Veenendaal",
-        "id": "weg-b024b25ecaa072c0f94a0b088bb3ffd0",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 1, 3903GA Veenendaal",
+        id: "adr-ab7a8c15ce7b433dffbefac72a4e772f",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Aalscholver, Veenendaal",
-        "id": "weg-a95b455225f8160acf89f2afe51931cd",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 2, 3903GA Veenendaal",
+        id: "adr-32e5d9ca2a08d4308fdde87ade9f6bcd",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Aardbeivlinderstraat, Veenendaal",
-        "id": "weg-807646073571b0aa3151d51ebea33ca5",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 3, 3903GA Veenendaal",
+        id: "adr-1426fbaed975bd50e43eaa4e67e2e72b",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Aardzwaluw, Veenendaal",
-        "id": "weg-57afbab2f02860417dd5172eed13ebd1",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 4, 3903GA Veenendaal",
+        id: "adr-6f3de8d2fbd6097661a0d42ae0b266a7",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Acacialaan, Veenendaal",
-        "id": "weg-223257a5cda6df61e1462b80634542a5",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 5, 3903GA Veenendaal",
+        id: "adr-bf2d18eb0cc305f5b21c6942c89dfd84",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Accustraat, Veenendaal",
-        "id": "weg-5cd1465d60b89fae05a940b03862375c",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 6, 3903GA Veenendaal",
+        id: "adr-8eb6e489abbd39a993532442b5664cec",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Achterberglaan, Veenendaal",
-        "id": "weg-913b32e8446831bedc975d4686b72966",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 7, 3903GA Veenendaal",
+        id: "adr-46dbd4ddf579007a5b898cac91fbbe60",
+        score: 12.993044
       },
       {
-        "type": "weg",
-        "weergavenaam": "Achterkerkstraat, Veenendaal",
-        "id": "weg-28eafd83f8aea1f47dbd430ff0a6918f",
-        "score": 13.37994
+        type: "adres",
+        weergavenaam: "Franjezwam 8, 3903GA Veenendaal",
+        id: "adr-cce2c1abe7402a81136b63de7b420623",
+        score: 12.993044
       }
     ]
   },
-  "highlighting": {
-    "gem-d0ccd69056678531945827988e55cbcf": {
-      "suggest": [
-        "Gemeente <b>Veenendaal</b>"
+  highlighting: {
+    weg-94958a50d7ff8dd9e785de5c14a787d3: {
+      suggest: [
+        "<b>Franjezwam</b>, Veenendaal"
       ]
     },
-    "wpl-85876574a2fea3d7347b7e7c1b6c98e6": {
-      "suggest": [
-        "<b>Veenendaal</b>, <b>Veenendaal</b>, Utrecht"
+    pcd-c90848918450209f6ddc6a6398a0ad3b: {
+      suggest: [
+        "<b>Franjezwam</b>, 3903 GA Veenendaal"
       ]
     },
-    "weg-b024b25ecaa072c0f94a0b088bb3ffd0": {
-      "suggest": [
-        "Aalbes, <b>Veenendaal</b>"
+    adr-ab7a8c15ce7b433dffbefac72a4e772f: {
+      suggest: [
+        "<b>Franjezwam</b> 1, 3903GA Veenendaal"
       ]
     },
-    "weg-a95b455225f8160acf89f2afe51931cd": {
-      "suggest": [
-        "Aalscholver, <b>Veenendaal</b>"
+    adr-32e5d9ca2a08d4308fdde87ade9f6bcd: {
+      suggest: [
+        "<b>Franjezwam</b> 2, 3903GA Veenendaal"
       ]
     },
-    "weg-807646073571b0aa3151d51ebea33ca5": {
-      "suggest": [
-        "Aardbeivlinderstraat, <b>Veenendaal</b>"
+    adr-1426fbaed975bd50e43eaa4e67e2e72b: {
+      suggest: [
+        "<b>Franjezwam</b> 3, 3903GA Veenendaal"
       ]
     },
-    "weg-57afbab2f02860417dd5172eed13ebd1": {
-      "suggest": [
-        "Aardzwaluw, <b>Veenendaal</b>"
+    adr-6f3de8d2fbd6097661a0d42ae0b266a7: {
+      suggest: [
+        "<b>Franjezwam</b> 4, 3903GA Veenendaal"
       ]
     },
-    "weg-223257a5cda6df61e1462b80634542a5": {
-      "suggest": [
-        "Acacialaan, <b>Veenendaal</b>"
+    adr-bf2d18eb0cc305f5b21c6942c89dfd84: {
+      suggest: [
+        "<b>Franjezwam</b> 5, 3903GA Veenendaal"
       ]
     },
-    "weg-5cd1465d60b89fae05a940b03862375c": {
-      "suggest": [
-        "Accustraat, <b>Veenendaal</b>"
+    adr-8eb6e489abbd39a993532442b5664cec: {
+      suggest: [
+        "<b>Franjezwam</b> 6, 3903GA Veenendaal"
       ]
     },
-    "weg-913b32e8446831bedc975d4686b72966": {
-      "suggest": [
-        "Achterberglaan, <b>Veenendaal</b>"
+    adr-46dbd4ddf579007a5b898cac91fbbe60: {
+      suggest: [
+        "<b>Franjezwam</b> 7, 3903GA Veenendaal"
       ]
     },
-    "weg-28eafd83f8aea1f47dbd430ff0a6918f": {
-      "suggest": [
-        "Achterkerkstraat, <b>Veenendaal</b>"
+    adr-cce2c1abe7402a81136b63de7b420623: {
+      suggest: [
+        "<b>Franjezwam</b> 8, 3903GA Veenendaal"
       ]
     }
   },
-  "spellcheck": {
-    "suggestions": [],
-    "collations": []
+  spellcheck: {
+    suggestions: [ ],
+    collations: [ ]
   }
 }
