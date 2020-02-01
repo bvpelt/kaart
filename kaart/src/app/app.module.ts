@@ -7,6 +7,8 @@ import {MapComponent} from './map/map.component';
 
 import {LocationComponent} from './location/location.component';
 import {LocationExchance} from "./services/locationExchance";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 /* import {PDOKLocatieModule, PDOKLocatieService} from "./services/pdoklocatie"; */
 
 
@@ -20,7 +22,8 @@ import {LocationExchance} from "./services/locationExchance";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [LocationExchance],
   bootstrap: [AppComponent]
