@@ -26,8 +26,8 @@ export class LocationComponent implements OnInit {
   private static maxRows = 15;
   private static l_adreses: string[] = new Array(LocationComponent.maxRows);
   private static l_index = 0;
-  private l_new = '';
-  private adresses: string[];
+  private _l_new = '';
+  private _adresses: string[];
   private adresses_ids: string[];
   private names: string[];
   private selected_adres: string;
@@ -44,12 +44,21 @@ export class LocationComponent implements OnInit {
     }
   }
 
+
+  get l_new(): string {
+    return this._l_new;
+  }
+
+  get adresses(): string[] {
+    return this._adresses;
+  }
+
   ngOnInit() {
     this.locationExchange.currentLocation.subscribe(point => this.currentLocation = point);
   }
 
   public onKeydown(value: string) {
-    this.l_new = value;
+    this._l_new = value;
     this.pdokLocService.getSuggest(value)
       .subscribe(suggest => {
         let data: string[] = Object.keys(suggest.highlighting);
@@ -63,7 +72,7 @@ export class LocationComponent implements OnInit {
           names[i] = suggest.response.docs[i].weergavenaam;
         }
         console.log('suggestions: ' + sug);
-        this.adresses = sug;
+        this._adresses = sug;
         this.adresses_ids = ids;
         this.names = names;
       });
@@ -106,7 +115,7 @@ export class LocationComponent implements OnInit {
 
               this.newPoint(point);
               console.log('Location - send point: ' + toStringXY(point.getCoordinates(), 6));
-              this.adresses = [];
+              this._adresses = [];
               this.adresses_ids = [];
               this.location = this.names[index];
             }
