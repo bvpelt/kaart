@@ -21,6 +21,9 @@ $ ng generate service services/pdoklocatie
 ## WMTS
 http://geodata.nationaalgeoregister.nl/tiles/service/wmts?REQUEST=GetCapabilities
 
+## Documentatie
+Zie https://compodoc.app/ 
+
 ### Referenties
 vanuit dso franjezwam 1
 
