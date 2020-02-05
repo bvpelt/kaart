@@ -2,14 +2,15 @@ ul {
   list-style-type: none;
   left: 0;
   padding: 0;
+  margin: 2px;
 }
 li {
   cursor: pointer;
 
   left: 0;
   background-color: #EEE;
-  margin: .1em;
-  padding: .1em 0;
+  margin: 0px;
+  padding: 0px 8px;
 
   border-radius: 4px;
 }

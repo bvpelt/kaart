@@ -61,11 +61,11 @@ export class LocationComponent implements OnInit {
     this._l_new = value;
     this.pdokLocService.getSuggest(value)
       .subscribe(suggest => {
-        let data: string[] = Object.keys(suggest.highlighting);
-        let sug: string[] = Array(LocationComponent.maxRows);
-        let ids: string[] = Array(LocationComponent.maxRows);
-        let names: string[] = Array(LocationComponent.maxRows);
-        let len = data.length;
+        const data: string[] = Object.keys(suggest.highlighting);
+        const sug: string[] = Array(LocationComponent.maxRows);
+        const ids: string[] = Array(LocationComponent.maxRows);
+        const names: string[] = Array(LocationComponent.maxRows);
+        const len = data.length;
         for (let i = 0; i < len; i++) {
           sug[i] = suggest.highlighting[data[i]].suggest;
           ids[i] = data[i];
@@ -94,7 +94,7 @@ export class LocationComponent implements OnInit {
       .subscribe(lookup => {
         console.log('Received: ' + lookup);
         const result: SuggestResponse = lookup.response as SuggestResponse;
-        if (result.numFound == 1) { // resultaat gevonden
+        if (result.numFound === 1) { // resultaat gevonden
           console.log('Type of result 00: ' + typeof (result.docs[0]));
           const doc: (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres) =
             result.docs[0] as (LookupGemeente | LookupWoonplaats | LookupWeg | LookupPostCode | LookupAdres);
@@ -117,7 +117,8 @@ export class LocationComponent implements OnInit {
               console.log('Location - send point: ' + toStringXY(point.getCoordinates(), 6));
               this._adresses = [];
               this.adresses_ids = [];
-              this.location = this.names[index];
+              this.location = ''; // this.names[index];
+              this._l_new = this.names[index];
             }
           }
         }
@@ -125,8 +126,8 @@ export class LocationComponent implements OnInit {
   }
 
   private stripString(input: string, regex: any): string {
-    console.log("input: " + input + " regex: " + regex);
-    input.replace(regex, "");
+    console.log('input: ' + input + ' regex: ' + regex);
+    input.replace(regex, '');
     return input;
   }
 

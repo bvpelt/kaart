@@ -3,7 +3,7 @@
   <label>Locatie
     <input [(ngModel)]="location" placeholder="locatie" (keyup)="onKeydown($event.target.value);" />
   </label>
-  <ul>
-    <li *ngFor="let adres of adresses; index as i" (click)="onSelect(adres,i)"><div [innerHTML]="adres"></div></li>
+  <ul *ngFor="let adres of adresses; index as i">
+    <li *ngIf="adres" (click)="onSelect(adres,i)"><div [innerHTML]="adres"></div></li>
   </ul>
 </div>

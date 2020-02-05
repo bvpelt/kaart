@@ -12,6 +12,7 @@ import {createStringXY, toStringXY} from 'ol/coordinate';
 import MousePosition from 'ol/control/MousePosition';
 import Projection from 'ol/proj/Projection';
 import {LayerUtils} from "./layers/layerutils";
+import {BgtAchtergrondLayer} from "./layers/bgtachtergrondlayer";
 
 @Component({
   selector: 'app-map',
@@ -45,6 +46,7 @@ export class MapComponent implements AfterViewInit {
     const brtLayer: BrtLayer = BrtLayer.createBrtLayer();
     const kadastraleKaartLayer: KadastraleKaartLayer = KadastraleKaartLayer.createKadastraleKaartLayer();
     const bgtStandaaardLayer: BgtStandaardLayer = BgtStandaardLayer.createBgtStandaardLayer();
+    const bgtAchtergrondLayer: BgtStandaardLayer = BgtAchtergrondLayer.createBgtAchtergrondLayer();
 
     this.map = new Map({
       target: 'map',
@@ -52,7 +54,8 @@ export class MapComponent implements AfterViewInit {
         new TileLayer({
           opacity: 1.0,
           source: brtLayer,
-          zIndex: 0
+          zIndex: 0,
+          visible: false
         }),
         new TileLayer({
           opacity: 1.0,
@@ -65,6 +68,12 @@ export class MapComponent implements AfterViewInit {
           source: bgtStandaaardLayer,
           zIndex: 2,
           visible: false
+        }),
+        new TileLayer({
+          opacity: 1.0,
+          source: bgtAchtergrondLayer,
+          zIndex: 3,
+          visible: true
         })
       ],
       view: new View({
