@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from "rxjs";
-import {Suggest} from "./suggest";
-import {Lookup} from "./lookup";
+import {Observable, of} from 'rxjs';
+import {Suggest} from './suggest';
+import {Lookup} from './lookup';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({

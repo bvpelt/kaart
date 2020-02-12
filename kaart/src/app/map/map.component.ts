@@ -3,16 +3,16 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import {defaults as defaultControls} from 'ol/control';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-import {BrtLayer} from "./layers/brtlayer";
-import {KadastraleKaartLayer} from "./layers/kadastralekaartlayer";
-import {BgtStandaardLayer} from "./layers/bgtstandaardlayer";
+import {BrtLayer} from './layers/brtlayer';
+import {KadastraleKaartLayer} from './layers/kadastralekaartlayer';
+import {BgtStandaardLayer} from './layers/bgtstandaardlayer';
 import Point from 'ol/geom/Point';
-import {LocationExchance} from "../services/locationExchance";
+import {LocationExchance} from '../services/locationExchance';
 import {createStringXY, toStringXY} from 'ol/coordinate';
 import MousePosition from 'ol/control/MousePosition';
 import Projection from 'ol/proj/Projection';
-import {LayerUtils} from "./layers/layerutils";
-import {BgtAchtergrondLayer} from "./layers/bgtachtergrondlayer";
+import {LayerUtils} from './layers/layerutils';
+import {BgtAchtergrondLayer} from './layers/bgtachtergrondlayer';
 
 @Component({
   selector: 'app-map',
@@ -55,7 +55,7 @@ export class MapComponent implements AfterViewInit {
           opacity: 1.0,
           source: brtLayer,
           zIndex: 0,
-          visible: false
+          visible: true
         }),
         new TileLayer({
           opacity: 1.0,
@@ -73,7 +73,7 @@ export class MapComponent implements AfterViewInit {
           opacity: 1.0,
           source: bgtAchtergrondLayer,
           zIndex: 3,
-          visible: true
+          visible: false
         })
       ],
       view: new View({
@@ -89,8 +89,8 @@ export class MapComponent implements AfterViewInit {
       ])
     });
 
-    this.map.getView().setMaxZoom(14);
-    this.map.getView().setMinZoom(2);
+    this.map.getView().setMaxZoom(15);
+    this.map.getView().setMinZoom(1);
     this.map.getView().fit(this.layerUtils.getNlExtend(), {constrainResolution: false});
 
     this.locationExchange.currentLocation.subscribe(point => {
@@ -99,12 +99,12 @@ export class MapComponent implements AfterViewInit {
       const options = [{padding: [50, 50, 50, 50]}];
 
       console.log('MapComponent - change location to: ' + toStringXY(point.getCoordinates(), 6), 4);
-      console.log("Current zoom: " + view.getZoom());
+      console.log('Current zoom: ' + view.getZoom());
 
       view.fit(point, options);
       view.setZoom(11);
 
-      console.log("Next zoom: " + view.getZoom());
+      console.log('Next zoom: ' + view.getZoom());
     });
 
   }
@@ -118,7 +118,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   createMouseTracker(): MousePosition {
-    var mousePosition: MousePosition = new MousePosition({
+    const mousePosition: MousePosition = new MousePosition({
       coordinateFormat: createStringXY(4), // 4 digits
       projection: this.layerUtils.getProjection(), // 'EPSG:28992',
       // comment the following two lines to have the mouse position

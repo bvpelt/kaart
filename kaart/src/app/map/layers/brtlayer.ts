@@ -1,7 +1,7 @@
 import WMTS from 'ol/source/WMTS';
 import {getTopLeft} from 'ol/extent';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
-import {LayerUtils} from "./layerutils";
+import {LayerUtils} from './layerutils';
 
 export class BrtLayer {
 
@@ -10,7 +10,7 @@ export class BrtLayer {
     const layerName: string = 'brtachtergrondkaart';
 
     const brtLayer: WMTS = new WMTS({
-      url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts?',
+      url: 'https://geodata.nationaalgeoregister.nl/wmts/brtachtergrondkaart?',
       layer: layerName,
       matrixSet: layerUtils.getProjection(),
       format: 'image/png',

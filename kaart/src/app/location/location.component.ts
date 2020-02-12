@@ -11,7 +11,7 @@ import {SuggestResponse} from '../services/suggestresponse';
 import Point from 'ol/geom/Point';
 import * as olCoordinate from 'ol/coordinate';
 import {toStringXY} from 'ol/coordinate';
-import {LocationExchance} from "../services/locationExchance";
+import {LocationExchance} from '../services/locationExchance';
 
 @Component({
   selector: 'app-location',
@@ -43,7 +43,6 @@ export class LocationComponent implements OnInit {
       LocationComponent.l_adreses[i] = '';
     }
   }
-
 
   get l_new(): string {
     return this._l_new;

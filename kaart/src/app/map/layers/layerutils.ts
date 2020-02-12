@@ -19,12 +19,13 @@ export class LayerUtils {
     1.68,
     0.84,
     0.42,
+    0.21
   ];
-  private matrixIds: string[] = new Array(14);
+  private matrixIds: string[] = new Array(15);
 
   constructor() {
 
-    for (let z = 0; z < 14; ++z) {
+    for (let z = 0; z < 15; ++z) {
       // generate resolutions and matrixIds arrays for this WMTS
       this.matrixIds[z] = this.rdprojection + ':' + z;
     }
