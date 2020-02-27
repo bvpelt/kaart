@@ -21,6 +21,9 @@ $ ng generate service services/pdoklocatie
 ## WMTS
 http://geodata.nationaalgeoregister.nl/tiles/service/wmts?REQUEST=GetCapabilities
 
+## WFS
+https://geodata.nationaalgeoregister.nl/liander/elektriciteitsnetten/v1/wfs?request=GetCapabilities&service=WFS&version=1.0.0
+
 ### Referenties
 vanuit dso franjezwam 1
 
